@@ -55,9 +55,9 @@ public class Rsa {
         this.r = r.multiply( q.add(BigInteger.valueOf(-1)) );
     }
 
-    private int randOddNumber()
+    private int randOddNumber(int partition)
     {
-        Random ranndNum = new Random(int partition);
+        Random ranndNum = new Random();
         int randN;
         do {
             randN = (partition / 2) + (int)(ranndNum.nextFloat() * (partition / 2 ) );
