@@ -57,10 +57,10 @@ public class Rsa {
 
     private int randOddNumber()
     {
-        Random ranndNum = new Random();
+        Random ranndNum = new Random(int partition);
         int randN;
         do {
-            randN = 5000 + (int)(ranndNum.nextFloat() * 5000);
+            randN = (partition / 2) + (int)(ranndNum.nextFloat() * (partition / 2 ) );
         }while( ( randN % 10 ) % 2 != 1);
 
         return randN;
