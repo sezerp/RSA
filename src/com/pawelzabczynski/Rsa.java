@@ -12,9 +12,10 @@ public class Rsa {
     private BigInteger q = new BigInteger("0");
     private BigInteger n = new BigInteger("0");
     private BigInteger r = new BigInteger("0");
+    private BigInteger e = new BigInteger("0");
 
-    private int i;
-    private int j;
+    private BigInteger i;
+    private BigInteger j;
 
     private Random rand = new Random();
     private final int nBit = 1024;
@@ -69,11 +70,18 @@ public class Rsa {
         return randN;
     }
 
-    private BigInteger getCoprime(BigInteger a, BigInteger b)
+    private BigInteger getCoprime(BigInteger a)
     {
         BigInteger coprime = new BigInteger("0");
 
+        do {
+            coprime = BigInteger.valueOf(randOddNumber(10000));
 
+
+            }while(!(extendetEuclideanAlgoritm(coprime, a)[0].compareTo(BigInteger.ONE) == 0) );
+
+        this.i = extendetEuclideanAlgoritm(coprime, a)[1];
+        this.j = extendetEuclideanAlgoritm(coprime, a)[2];
         return coprime;
     }
 
@@ -113,8 +121,8 @@ public class Rsa {
         }
 
         ret[0] = r1;
-        ret[1] = s0;
-        ret[2] = t1;;
+        ret[1] = t0;
+        ret[2] = s0;
         return ret;
     }
 

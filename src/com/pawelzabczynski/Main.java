@@ -11,8 +11,9 @@ public class Main {
 //        System.out.println(w.getP());
 //        System.out.println(w.getQ());
         BigInteger[] x = new BigInteger[3];
+        BigInteger y;
 
-        x = w.extendetEuclideanAlgoritm(BigInteger.valueOf(46), BigInteger.valueOf(240));
+        x = w.extendetEuclideanAlgoritm(BigInteger.valueOf(8207), BigInteger.valueOf(111111));
 
         for(int i=0; i<3; i++ )
         {
