@@ -13,6 +13,7 @@ public class Rsa {
     private BigInteger n = new BigInteger("0");
     private BigInteger r = new BigInteger("0");
     private BigInteger e = new BigInteger("0");
+    private BigInteger d = new BigInteger("0");
 
     private BigInteger i;
     private BigInteger j;
@@ -126,7 +127,12 @@ public class Rsa {
         return ret;
     }
 
-
+    private BigInteger getMultipicativeInverse(BigInteger a, BigInteger b)
+    {
+        BigInteger c;
+/* TO DO */
+        return c;
+    }
 
 
 
