@@ -124,14 +124,18 @@ public class Rsa {
         ret[0] = r1;
         ret[1] = t0;
         ret[2] = s0;
+
+        this.r = r1;
+        this.i = t0;
+        this.j = s0;
         return ret;
     }
 
-    private BigInteger getMultipicativeInverse(BigInteger a, BigInteger b)
+    private BigInteger getMultipicativeInverse()
     {
         BigInteger c;
-/* TO DO */
-        return c;
+        d = j.mod(r);
+        return j.mod(r);
     }
 
 
