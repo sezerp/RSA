@@ -6,20 +6,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Rsa w = new Rsa(512);
+        Rsa w = new Rsa();
 
-//        System.out.println(w.getP());
-//        System.out.println(w.getQ());
         BigInteger[] x = new BigInteger[3];
-        BigInteger y;
+        BigInteger[] y = new BigInteger[4];
 
-        x = w.extendetEuclideanAlgoritm(BigInteger.valueOf(8207), BigInteger.valueOf(111111));
+        x = w.extendetEuclideanAlgoritm(BigInteger.valueOf(7), BigInteger.valueOf(448));
 
-        for(int i=0; i<3; i++ )
-        {
-            System.out.println(x[i]);
-        }
+        for(int i=0; i < 3; i++ )System.out.println(x[i]);
 
+        y = w.getCoprime(BigInteger.valueOf(448));
+        for(int i=0; i < 4; i++ )System.out.println(y[i]);
 
     }
 }

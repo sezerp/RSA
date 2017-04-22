@@ -8,56 +8,40 @@ import java.util.Random;
  */
 public class Rsa {
 
-    private BigInteger p = new BigInteger("0");
-    private BigInteger q = new BigInteger("0");
-    private BigInteger n = new BigInteger("0");
-    private BigInteger r = new BigInteger("0");
-    private BigInteger e = new BigInteger("0");
-    private BigInteger d = new BigInteger("0");
-
-    private BigInteger i;
-    private BigInteger j;
-
-    private Random rand = new Random();
-    private final int nBit = 1024;
 
     Rsa()
     {
-        do {
-            p = p.probablePrime(this.nBit, rand);
-        }
-        while(!p.isProbablePrime(100));
 
-        do {
-            q = q.probablePrime(this.nBit, rand);
-        }
-        while(!q.isProbablePrime(100));
-    }
-
-    Rsa(int n)
-    {
-
-        do {
-            p = p.probablePrime(n, rand);
-        }
-        while(!p.isProbablePrime(100));
-
-        do {
-            q = q.probablePrime(n, rand);
-        }
-        while(!q.isProbablePrime(100));
     }
 
 
-    private void calculateN()
+    private BigInteger getPrime(int n)
     {
-        this.n = this.q.multiply(this.p);
+        Random rand = new Random();
+        BigInteger prime = new BigInteger("0");
+
+        do {
+            prime = prime.probablePrime(n, rand);
+        }
+        while(!prime.isProbablePrime(100));
+
+        return prime;
     }
 
-    private void calculateR()
+    private BigInteger calculateN(BigInteger p, BigInteger q)
     {
-        this.r = p.add(BigInteger.valueOf(-1));
-        this.r = r.multiply( q.add(BigInteger.valueOf(-1)) );
+        return q.multiply(p);
+    }
+
+    private BigInteger calculateR(BigInteger p, BigInteger q)
+    {
+        BigInteger r = new BigInteger("0");
+        BigInteger x = new BigInteger("0");
+
+        r = p.subtract(BigInteger.valueOf(1));
+        x = q.subtract(BigInteger.valueOf(1));
+
+        return r.multiply(x);
     }
 
     private int randOddNumber(int partition)
@@ -71,40 +55,25 @@ public class Rsa {
         return randN;
     }
 
-    private BigInteger getCoprime(BigInteger a)
-    {
-        BigInteger coprime = new BigInteger("0");
-
-        do {
-            coprime = BigInteger.valueOf(randOddNumber(10000));
-
-
-            }while(!(extendetEuclideanAlgoritm(coprime, a)[0].compareTo(BigInteger.ONE) == 0) );
-
-        this.i = extendetEuclideanAlgoritm(coprime, a)[1];
-        this.j = extendetEuclideanAlgoritm(coprime, a)[2];
-        return coprime;
-    }
-
     public BigInteger[] extendetEuclideanAlgoritm(BigInteger a, BigInteger b)
     {
 
         BigInteger[] ret = new BigInteger[3];
 
 
-        BigInteger s0 = BigInteger.ZERO;
-        BigInteger t0 = BigInteger.ONE;
+        BigInteger s0 = new BigInteger("0");
+        BigInteger t0 = new BigInteger("1");
         BigInteger r0 = b;
 
-        BigInteger s1 = BigInteger.ONE;
-        BigInteger t1 = BigInteger.ZERO;
+        BigInteger s1 = new BigInteger("1");
+        BigInteger t1 = new BigInteger("0");
         BigInteger r1 = a;
 
-        BigInteger q = BigInteger.valueOf(0);
+        BigInteger q = new BigInteger("0");
 
-        BigInteger buff = BigInteger.ZERO;
+        BigInteger buff = new BigInteger("0");
 
-        while(r0 != BigInteger.ZERO)
+        while(0 != r0.compareTo(BigInteger.ZERO))
         {
             q = r1.divide(r0);
             buff = r0;
@@ -125,40 +94,40 @@ public class Rsa {
         ret[1] = t0;
         ret[2] = s0;
 
-        this.r = r1;
-        this.i = t0;
-        this.j = s0;
         return ret;
     }
 
-    private BigInteger getMultipicativeInverse()
+    public BigInteger[] getCoprime(BigInteger a)
     {
-        BigInteger c;
-        d = j.mod(r);
-        return j.mod(r);
+        BigInteger[] coprime = new BigInteger[4];
+        BigInteger[] eukEx = new BigInteger[3];
+
+        do {
+            coprime[3] = BigInteger.valueOf(randOddNumber(10));
+            eukEx = extendetEuclideanAlgoritm(coprime[3], a);
+
+        }while(!(extendetEuclideanAlgoritm(coprime[3], a)[0].compareTo(BigInteger.ONE) == 0) && coprime[3].compareTo(BigInteger.ZERO) != 0 );
+
+        for(int i=0; i < 3; i++)coprime[i] = eukEx[i];
+        return coprime;
     }
 
-
-
-
-    BigInteger getP()
+    private BigInteger getMultipicativeInverse(BigInteger r, BigInteger j)
     {
-        return this.p;
+        BigInteger mulInv;
+
+        if(j.signum() == 1 || j.signum() == 0){
+            mulInv = j.mod(r);
+        }
+        else {
+            mulInv = j.add(r);
+        }
+        return mulInv;
     }
 
-    BigInteger getQ()
-    {
-        return this.q;
-    }
-    BigInteger getN()
-    {
-        return this.n;
-    }
+    public BigInteger privateFunction(BigInteger x, BigInteger e, BigInteger n) {return x.modPow(e, n);}
 
-    BigInteger getR()
-    {
-        return this.r;
-    }
+    public BigInteger publicFunction(BigInteger x, BigInteger d, BigInteger n) {return x.modPow(d, n);}
 
 
 }
