@@ -106,7 +106,6 @@ public class Rsa {
         do {
             coprime[3] = BigInteger.valueOf(randOddNumber(10));
             eukEx = extendetEuclideanAlgoritm(coprime[3], a);
-            System.out.println(coprime[3]);
 
         }while(eukEx[0].compareTo(BigInteger.ONE) != 0 );
 
