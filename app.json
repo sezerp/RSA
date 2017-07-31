@@ -1,0 +1,16 @@
+{
+  "name": "RSA",
+  "description": "testing heroku chatOps",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
