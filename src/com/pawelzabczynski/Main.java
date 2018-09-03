@@ -8,9 +8,9 @@ public class Main {
 
         Rsa w = new Rsa();
 
-        BigInteger p = w.getPrime(512);
+        BigInteger p = w.getPrime(1024);
         System.out.println("p: " + p);
-        BigInteger q = w.getPrime(512);
+        BigInteger q = w.getPrime(1024);
         System.out.println("q: " + q);
         BigInteger n = w.calculateN(p, q);
         System.out.println("n: " + n);
@@ -22,10 +22,12 @@ public class Main {
         BigInteger d = w.getMultipicativeInverse(r, e[2]);
         System.out.println("d: " + d);
 
-        BigInteger pub = w.publicFunction(BigInteger.valueOf(127), e[3], n);
-        System.out.println("pub: " + pub);
-        BigInteger priv = w.privateFunction(pub, d, n);
-        System.out.println("priv: " + priv);
+        BigInteger valutToEncrypted = BigInteger.valueOf(122345);
+
+        BigInteger encryptedValue = w.publicFunction(valutToEncrypted, e[3], n);
+        System.out.println("pub: " + encryptedValue);
+        BigInteger decryptedValue = w.privateFunction(encryptedValue, d, n);
+        System.out.println("priv: " + decryptedValue);
 
 
     }
